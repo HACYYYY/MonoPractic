@@ -33,7 +33,7 @@ export default {
 }
 
 h1 {
-  font-size: 2.6vw;
+  font-size: 2.2vw;
   color: #0dff00;
   font-family: "HACK";
   margin: 0;
@@ -41,7 +41,7 @@ h1 {
 }
 h2 {
   color: #296300;
-  font-size: 1.8vw;
+  font-size: 1vw;
   font-family: "HACK";
   margin: 0;
   margin-top: 1.5625vw;

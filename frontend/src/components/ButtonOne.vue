@@ -29,8 +29,8 @@ export default {
   max-height: max-content;
   width: 100%;
   height: 100%;
-  padding: 0.6375vw 5.8125vh;
-  font-size: 1.83vw;
+  padding: 0.6375vw 3.8125vh;
+  font-size: 1.2vw;
   font-family: "HACK";
 }
 .buttonBox--one {

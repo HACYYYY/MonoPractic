@@ -360,29 +360,34 @@ export default {
 
 <style scoped>
 svg {
+  width: 15.625vw;
+  height: 100%;
 }
 .palka {
   width: 80%;
-  margin-top: 20px;
+  margin-top: 1.042vw;
   background: linear-gradient(90deg, rgba(10, 204, 0, 0%) 0%, #0dff00 50%, rgba(8, 153, 0, 0%) 100%);
   height: 1px;
   border: 0;
 }
 header {
+  background-color: #000000;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: sticky;
-  top: 10px;
+  padding: 1.781vw 0 0 0;
+  top: 0px;
+  z-index: 10;
 }
 .head {
-  width: 100%;
-  max-width: 1920px;
-  height: 12vh;
+  width: 93.75vw;
+
   max-height: 160px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
 nav {
