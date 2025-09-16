@@ -1,5 +1,6 @@
 <script>
 import UserProfile from "@/components/UserProfile.vue";
+import { RouterLink, RouterView } from "vue-router";
 export default {
   components: {
     UserProfile,
@@ -347,10 +348,10 @@ export default {
       </svg>
 
       <nav>
-        <div class="glav">Главная</div>
-        <div class="catalog">Каталог</div>
-        <div class="portfolio">Портфолио</div>
-        <div class="FAQ">О нас</div>
+        <RouterLink to="/" class="glav">Главная</RouterLink>
+        <RouterLink to="/Catalogs" class="catalog">Каталог</RouterLink>
+        <RouterLink to="a" class="portfolio">Портфолио</RouterLink>
+        <RouterLink to="d" class="FAQ">О нас</RouterLink>
       </nav>
       <UserProfile userName="Пользователь" balance="0" avatar-url="/photo_2025-07-12_23-50-16.jpg" />
     </div>
@@ -359,6 +360,8 @@ export default {
 </template>
 
 <style scoped>
+
+
 svg {
   width: 15.625vw;
   height: 100%;
@@ -394,27 +397,38 @@ nav {
   display: flex;
   gap: 2.5vw;
   align-items: center;
+  
 }
 .glav {
-  color: #0dff00;
+  color: #296300;
   font-size: 1.5vw;
   font-family: "HACK";
+  text-decoration: none;
 }
 .catalog {
-  color: #0dff00;
+  color: #296300;
   font-family: "HACK";
   font-size: 1.5vw;
+  text-decoration: none;
 }
 .portfolio {
-  color: #0dff00;
+  color: #296300;
   font-family: "HACK";
   font-size: 1.5vw;
+  text-decoration: none;
 }
 .FAQ {
-  color: #0dff00;
+  color: #296300;
   font-family: "HACK";
   font-size: 1.5vw;
+  text-decoration: none;
 }
+
+.router-link-exact-active{
+    color: #0dff00;
+    text-shadow: 0 0 50px #0dff00; 
+}
+
 @media screen {
 }
 </style>

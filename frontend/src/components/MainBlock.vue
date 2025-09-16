@@ -21,7 +21,6 @@ export default {
 
 <style scoped>
 .mainBlock {
-  padding: 0px 15.4167vw;
   display: flex;
   flex-direction: column;
 }

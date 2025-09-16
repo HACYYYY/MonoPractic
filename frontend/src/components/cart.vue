@@ -1,12 +1,12 @@
 <template>
-    <RouterLink to="daasfafaf" class="cartBox">
+    <RouterLink to="" class="cartBox" @click="$emit('cak', textOne)">
         <div class="backgroundColor">
             <div class="cartBox--content">
                 <img   :src="ImageCart" :alt="altTextCard" class="imgCart">
                 <div class="cartBox--text">
                     <h1 >{{textOne}}</h1>
                     <h2>{{textTwo}}</h2>
-                    <hr class="palka" />
+                    <hr class="palka"/>
             </div>
         </div>
 
@@ -36,13 +36,15 @@ export default{
             type: String,
             default:""
         }
-    }
+
+    },
+    emits:['cak'] 
 }
 </script>
 
 <style scoped>
 .palka {
-    
+    visibility: hidden;
     width: 80%;
   margin-top: 1.042vw;
   background: linear-gradient(90deg, rgba(10, 204, 0, 0%) 0%, #0dff00 50%, rgba(8, 153, 0, 0%) 100%);
@@ -54,9 +56,9 @@ export default{
         text-decoration: none;
         width: 19.792vw;
         border: none;
-        min-width: 100px;
+        margin-top: 3.625vw;
         align-items: center;
-        min-height: 90px;
+        
         background: linear-gradient(-179.914deg, rgba(10, 204, 0, 0%) 0%, #0DFF00 50%, rgba(8, 153, 0, 0%) 100%);
         display: flex;
         flex-direction: column;
@@ -64,13 +66,26 @@ export default{
         
     }
     .cartBox:hover{
-        transform: translateY(-100px);
-        
+        transform: translateY(-70px);
+         
+        >.backgroundColor{
+             
+            >.cartBox--content{
+                
+                >.cartBox--text{
+                    >hr{
+                        visibility: visible;
+                        box-shadow: 0 0 50px #0dff00; 
+                    }
+                }
+            }
+
+        }
     }
     .backgroundColor{
         color: azure;
         background-color: black;
-        width: calc(100% - 6px);
+        width: calc(100% - 2px);
         height: max-content;
     }
     .cartBox--content{
