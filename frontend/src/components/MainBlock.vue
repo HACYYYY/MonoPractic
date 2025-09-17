@@ -1,21 +1,29 @@
 <template>
+  <modal :a="lap" @exit="lap = ''" />
   <div class="mainBlock">
     <h1>Создаем сайты, которые затягивают пользователей как в паутину</h1>
     <h2>Современные технологии, адаптивный дизайн, молниеносная скорость загрузки.</h2>
     <div class="buttonblock">
-      <ButtonOne text="Заказать проект" variant="one" />
-      <ButtonOne text="ПортфоЛио" variant="two" />
+      <ButtonOne text="Заказать проект" variant="one" @click="lap = 'Любая'" />
+      <ButtonOne text="ПортфоЛио" variant="two" @click="lap = 'Любая'" />
     </div>
   </div>
 </template>
 
 <script>
 import ButtonOne from "./ButtonOne.vue";
-
+import modal from "./modal.vue";
 export default {
   components: {
     ButtonOne,
+    modal,
   },
+  data() {
+    return {
+      lap: "",
+    };
+  },
+  emits: ["cak"],
 };
 </script>
 

@@ -350,7 +350,7 @@ export default {
       <nav>
         <RouterLink to="/" class="glav">Главная</RouterLink>
         <RouterLink to="/Catalogs" class="catalog">Каталог</RouterLink>
-        <RouterLink to="a" class="portfolio">Портфолио</RouterLink>
+        <RouterLink to="/portfolio" class="portfolio">Портфолио</RouterLink>
         <RouterLink to="d" class="FAQ">О нас</RouterLink>
       </nav>
       <UserProfile userName="Пользователь" balance="0" avatar-url="/photo_2025-07-12_23-50-16.jpg" />
@@ -360,8 +360,6 @@ export default {
 </template>
 
 <style scoped>
-
-
 svg {
   width: 15.625vw;
   height: 100%;
@@ -390,14 +388,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 
 nav {
   display: flex;
   gap: 2.5vw;
   align-items: center;
-  
 }
 .glav {
   color: #296300;
@@ -424,9 +420,9 @@ nav {
   text-decoration: none;
 }
 
-.router-link-exact-active{
-    color: #0dff00;
-    text-shadow: 0 0 50px #0dff00; 
+.router-link-exact-active {
+  color: #0dff00;
+  text-shadow: 0 0 50px #0dff00;
 }
 
 @media screen {
