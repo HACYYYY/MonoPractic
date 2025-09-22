@@ -1,5 +1,5 @@
 <template>
-  <modal :a="lap" @exit="lap = ''" />
+  <OrderModal v-if="selectedService" />
   <div class="mainBox">
     <div class="textBox">
       <h1>portfolio</h1>
@@ -38,7 +38,7 @@
 <script>
 import ButtonOne from "@/components/ButtonOne.vue";
 import primerPortfolio from "@/components/primerPortfolio.vue";
-import modal from "@/components/modal.vue";
+import modal from "@/components/OrderModal.vue";
 
 export default {
   components: {

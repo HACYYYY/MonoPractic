@@ -61,15 +61,30 @@ export default {
   },
 
   methods: {
-    async handleLogin() {
-      try {
-        await this.authStore.loginUser(this.form)
-        this.$router.push('/profile') // Перенаправляем в профиль
-      } catch (error) {
-        alert('Ошибка входа: ' + (error.message || 'Неверные данные'))
+  async handleLogin() {
+    try {
+      // ВРЕМЕННО: Тестовая авторизация
+      const userData = {
+        id: 1,
+        name: this.form.email.split('@')[0] || 'Пользователь',
+        email: this.form.email,
+        balance: 5000,
+        avatar: ''
       }
+      
+      this.authStore.user = userData
+      this.authStore.isAuthenticated = true
+      localStorage.setItem('authToken', 'demo-token')
+      localStorage.setItem('userData', JSON.stringify(userData))
+      
+      // Явный redirect
+      this.$router.push('/profile')
+      
+    } catch (error) {
+      alert('Ошибка входа: ' + error.message)
     }
   }
+}
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <modal :a="lap" @exit="lap = ''" />
+  <OrderModal v-if="selectedService" />
   <div class="mainBlock">
     <h1>Создаем сайты, которые затягивают пользователей как в паутину</h1>
     <h2>Современные технологии, адаптивный дизайн, молниеносная скорость загрузки.</h2>
@@ -12,7 +12,7 @@
 
 <script>
 import ButtonOne from "./ButtonOne.vue";
-import modal from "./modal.vue";
+import modal from "./OrderModal.vue";
 export default {
   components: {
     ButtonOne,

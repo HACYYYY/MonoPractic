@@ -1,10 +1,31 @@
 <script>
 import UserProfile from "@/components/UserProfile.vue";
 import { RouterLink, RouterView } from "vue-router";
+import { useAuthStore } from '@/stores/auth'
+
 export default {
   components: {
-    UserProfile,
+    
   },
+  setup() {
+    const authStore = useAuthStore()
+    return { authStore }
+  },
+  computed: {
+  actualBalance() {
+    // Всегда получаем свежий баланс
+    try {
+      const savedUser = localStorage.getItem('userData')
+      if (savedUser) {
+        const userData = JSON.parse(savedUser)
+        return userData.balance || 0
+      }
+    } catch (error) {
+      console.error('Ошибка чтения баланса:', error)
+    }
+    return this.authStore.userBalance || 0
+  }
+}
 };
 </script>
 
@@ -351,9 +372,23 @@ export default {
         <RouterLink to="/" class="glav">Главная</RouterLink>
         <RouterLink to="/Catalogs" class="catalog">Каталог</RouterLink>
         <RouterLink to="/portfolio" class="portfolio">Портфолио</RouterLink>
-        <RouterLink to="d" class="FAQ">О нас</RouterLink>
+        <router-link to="/test-connection" class="nav-link">Тест API</router-link>
+        <RouterLink to="/about" class="FAQ">О нас</RouterLink>
       </nav>
-      <UserProfile userName="Пользователь" balance="0" avatar-url="/photo_2025-07-12_23-50-16.jpg" />
+      <div class="auth-section">
+        <div v-if="authStore.isAuthenticated" class="user-section">
+          <RouterLink to="/profile" class="user-profile-link">
+            <div class="user-info-simple">
+              <span class="user-name">{{ authStore.userName }}</span>
+              <span class="balance">{{ authStore.userBalance }} ₽</span>
+            </div>
+          </RouterLink>
+        </div>
+        <div v-else class="auth-links">
+          <RouterLink to="/login" class="login-btn">Войти</RouterLink>
+          <RouterLink to="/register" class="register-btn">Регистрация</RouterLink>
+        </div>
+        </div>
     </div>
     <hr class="palka" />
   </header>
@@ -364,6 +399,7 @@ svg {
   width: 15.625vw;
   height: 100%;
 }
+
 .palka {
   width: 80%;
   margin-top: 1.042vw;
@@ -371,6 +407,7 @@ svg {
   height: 1px;
   border: 0;
 }
+
 header {
   background-color: #000000;
   display: flex;
@@ -381,9 +418,9 @@ header {
   top: 0px;
   z-index: 10;
 }
+
 .head {
   width: 93.75vw;
-
   max-height: 160px;
   display: flex;
   justify-content: space-between;
@@ -395,36 +432,110 @@ nav {
   gap: 2.5vw;
   align-items: center;
 }
-.glav {
+
+.glav, .catalog, .portfolio, .FAQ, .nav-link {
   color: #296300;
   font-size: 1.5vw;
   font-family: "HACK";
   text-decoration: none;
-}
-.catalog {
-  color: #296300;
-  font-family: "HACK";
-  font-size: 1.5vw;
-  text-decoration: none;
-}
-.portfolio {
-  color: #296300;
-  font-family: "HACK";
-  font-size: 1.5vw;
-  text-decoration: none;
-}
-.FAQ {
-  color: #296300;
-  font-family: "HACK";
-  font-size: 1.5vw;
-  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.router-link-exact-active {
+.glav:hover, .catalog:hover, .portfolio:hover, .FAQ:hover, .nav-link:hover {
+  color: #0dff00;
+}
+
+.router-link-active, .router-link-exact-active {
   color: #0dff00;
   text-shadow: 0 0 50px #0dff00;
 }
 
-@media screen {
+.auth-section {
+  display: flex;
+  align-items: center;
+}
+
+.user-section .user-profile-link {
+  text-decoration: none;
+}
+
+.user-info-simple {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #0DFF00;
+  font-family: "HACK";
+  padding: 10px;
+  border: 1px solid #296300;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.user-info-simple:hover {
+  border-color: #0DFF00;
+  background: #296300;
+}
+
+.user-name {
+  font-size: 1.1vw;
+  margin-bottom: 5px;
+}
+
+.balance {
+  color: #0DFF00;
+  text-shadow: 0 0 5px #0DFF00;
+  font-size: 1vw;
+}
+
+.auth-links {
+  display: flex;
+  gap: 1.5vw;
+  align-items: center;
+}
+
+.login-btn, .register-btn {
+  color: #296300;
+  font-family: "HACK";
+  font-size: 1.3vw;
+  text-decoration: none;
+  padding: 0.5vw 1.5vw;
+  border: 1px solid #296300;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover, .register-btn:hover {
+  color: #0dff00;
+  border-color: #0dff00;
+  background: #296300;
+}
+
+@media (max-width: 768px) {
+  .head {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 0;
+  }
+  
+  nav {
+    gap: 15px;
+  }
+  
+  .glav, .catalog, .portfolio, .FAQ, .nav-link {
+    font-size: 16px;
+  }
+  
+  .user-name {
+    font-size: 14px;
+  }
+  
+  .balance {
+    font-size: 12px;
+  }
+  
+  .login-btn, .register-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }
 </style>

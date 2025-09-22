@@ -4,6 +4,7 @@ import headerr from "./components/Header.vue";
 import MainBlock from "./components/MainBlock.vue";
 import cart from "./components/cart.vue";
 import FooterBox from "./components/footer.vue"
+import { useAuthStore } from '@/stores/auth'
 export default {
   components: {
     MainBlock,
@@ -13,6 +14,16 @@ export default {
     cart,
     FooterBox
   },
+  name: 'App',
+  
+  setup() {
+    const authStore = useAuthStore()
+    
+    // Восстанавливаем аутентификацию при загрузке приложения
+    authStore.initializeAuth()
+    
+    return {}
+  }
 };
 </script>
 
