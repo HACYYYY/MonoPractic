@@ -20,6 +20,16 @@ const router = createRouter({
       name: "portfolio",
       component: portfolio,
     },
+    {
+  path: '/login',
+  name: 'Login',
+  component: () => import('@/views/LoginPage.vue')
+},
+{
+  path: '/register', 
+  name: 'Register',
+  component: () => import('@/views/RegisterPage.vue') // Создашь позже
+}
   ],
 });
 

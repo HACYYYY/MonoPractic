@@ -4,6 +4,7 @@ import MainBlock from "@/components/MainBlock.vue";
 import cart from "@/components/cart.vue";
 import Reclama from "@/components/Reclama.vue"
 import InfoBox from "@/components/InfoBox.vue"
+import { getServices } from '@/api/services'
 export default {
   components: {
     MainBlock,
@@ -12,6 +13,15 @@ export default {
     InfoBox,
     Reclama
   },
+  async mounted() {
+    try {
+
+      const services = await getServices()
+      console.log('Услуги с сервера:', services)
+    } catch (error) {
+      console.log('Сервер пока не отвечает, но клиент готов!')
+    }
+  }
 }
 </script>
 
