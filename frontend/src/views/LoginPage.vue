@@ -2,90 +2,81 @@
   <div class="login-page">
     <div class="login-form">
       <h2>Вход в систему</h2>
-      
+
       <form @submit.prevent="handleLogin">
         <div class="form-group">
           <label>Email:</label>
-          <input 
-            type="email" 
-            v-model="form.email"
-            required
-            placeholder="your@email.com"
-          >
+          <input type="email" v-model="form.email" required placeholder="your@email.com" />
         </div>
 
         <div class="form-group">
           <label>Пароль:</label>
-          <input 
-            type="password" 
-            v-model="form.password"
-            required
-            placeholder="Введите пароль"
-          >
+          <input type="password" v-model="form.password" required placeholder="Введите пароль" />
         </div>
 
-        <button 
-          type="submit" 
-          :disabled="authStore.isLoading"
-          class="login-btn"
-        >
-          {{ authStore.isLoading ? 'Вход...' : 'Войти' }}
+        <button type="submit" :disabled="authStore.isLoading" class="login-btn">
+          {{ authStore.isLoading ? "Вход..." : "Войти" }}
         </button>
 
-        <p class="register-link">
-          Нет аккаунта? <router-link to="/register">Зарегистрироваться</router-link>
-        </p>
+        <p class="register-link">Нет аккаунта? <router-link to="/register">Зарегистрироваться</router-link></p>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from "@/stores/auth";
 
 export default {
-  name: 'LoginPage',
-  
+  name: "LoginPage",
+
   data() {
     return {
       form: {
-        email: '',
-        password: ''
-      }
-    }
+        email: "",
+        password: "",
+      },
+    };
   },
 
   setup() {
-    const authStore = useAuthStore()
-    return { authStore }
+    const authStore = useAuthStore();
+    return { authStore };
   },
 
   methods: {
-  async handleLogin() {
-    try {
-      // ВРЕМЕННО: Тестовая авторизация
-      const userData = {
-        id: 1,
-        name: this.form.email.split('@')[0] || 'Пользователь',
-        email: this.form.email,
-        balance: 5000,
-        avatar: ''
+    async handleLogin() {
+      // Показываем что идет загрузка
+      this.authStore.isLoading = true;
+
+      try {
+        console.log("Пытаемся войти с:", this.form);
+
+        // РЕАЛЬНЫЙ ЗАПРОС К СЕРВЕРУ
+        const response = await this.authStore.loginUser(this.form);
+        console.log("Успешный вход:", response);
+
+        // Переходим в профиль
+        this.$router.push("/profile");
+      } catch (error) {
+        console.error("Ошибка входа:", error);
+
+        // РЕАЛЬНЫЕ ОШИБКИ ОТ СЕРВЕРА
+        let errorMessage = "Ошибка сервера";
+
+        if (error.message) {
+          errorMessage = error.message;
+        } else if (error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        }
+
+        alert("Ошибка входа: " + errorMessage);
+      } finally {
+        this.authStore.isLoading = false;
       }
-      
-      this.authStore.user = userData
-      this.authStore.isAuthenticated = true
-      localStorage.setItem('authToken', 'demo-token')
-      localStorage.setItem('userData', JSON.stringify(userData))
-      
-      // Явный redirect
-      this.$router.push('/profile')
-      
-    } catch (error) {
-      alert('Ошибка входа: ' + error.message)
-    }
-  }
-}
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -99,19 +90,19 @@ export default {
 }
 
 .login-form {
-  background: #2C2C2C;
+  background: #2c2c2c;
   padding: 40px;
   border-radius: 10px;
-  border: 2px solid #0DFF00;
+  border: 2px solid #0dff00;
   width: 100%;
   max-width: 400px;
 }
 
 .login-form h2 {
-  color: #0DFF00;
+  color: #0dff00;
   text-align: center;
   margin-bottom: 30px;
-  text-shadow: 0 0 10px #0DFF00;
+  text-shadow: 0 0 10px #0dff00;
 }
 
 .form-group {
@@ -136,14 +127,14 @@ export default {
 
 .form-group input:focus {
   outline: none;
-  border-color: #0DFF00;
-  box-shadow: 0 0 10px #0DFF00;
+  border-color: #0dff00;
+  box-shadow: 0 0 10px #0dff00;
 }
 
 .login-btn {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(45deg, #0DFF00, #296300);
+  background: linear-gradient(45deg, #0dff00, #296300);
   color: #000;
   border: none;
   border-radius: 5px;
@@ -170,11 +161,11 @@ export default {
 }
 
 .register-link a {
-  color: #0DFF00;
+  color: #0dff00;
   text-decoration: none;
 }
 
 .register-link a:hover {
-  text-shadow: 0 0 5px #0DFF00;
+  text-shadow: 0 0 5px #0dff00;
 }
 </style>
